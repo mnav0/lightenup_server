@@ -11,6 +11,13 @@ public class AnimationQueue {
     @JoinColumn(name = "type", referencedColumnName = "id")
     private AnimationTypes type;
 
+    public AnimationQueue() {
+    }
+
+    public AnimationQueue(AnimationTypes animType) {
+        this.type = animType;
+    }
+
     public int getId() { return id; }
     public void setId(int id)	{	this.id = id; }
 

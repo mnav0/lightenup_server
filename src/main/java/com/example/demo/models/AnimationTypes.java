@@ -16,11 +16,6 @@ public class AnimationTypes {
     public AnimationTypes() {
     }
 
-    public AnimationTypes(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     public int getId() {
         return id;
     }
