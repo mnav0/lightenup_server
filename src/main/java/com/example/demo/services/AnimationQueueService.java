@@ -22,13 +22,14 @@ public class AnimationQueueService {
         return queueRepository.findAll();
     }
 
-    @GetMapping("/deleteAnimation/{queueId}")
-    public void deleteAnimation(
+    @GetMapping("/deleteFromQueue/{queueId}")
+    public Iterable<AnimationQueue> deleteAnimation(
             @PathVariable("queueId") Integer queueId) {
         queueRepository.deleteById(queueId);
+        return queueRepository.findAll();
     }
 
-    @GetMapping("/createAnimation/{typeId}")
+    @GetMapping("/addToQueue/{typeId}")
     public AnimationQueue createAnimation(
             @PathVariable("typeId") Integer typeId
     ) {
