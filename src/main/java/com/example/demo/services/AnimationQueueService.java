@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Sort;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -21,7 +22,7 @@ public class AnimationQueueService {
 
     @GetMapping("/getQueue")
     public Iterable<AnimationQueue> getQueue() {
-        return queueRepository.findAll();
+        return queueRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @GetMapping("/deleteFromQueue/{queueId}")
