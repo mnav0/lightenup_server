@@ -7,6 +7,9 @@ public class AnimationQueue {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
+    @Column(name="playing")
+    private boolean playing;
+
     @OneToOne
     @JoinColumn(name = "type", referencedColumnName = "id")
     private AnimationTypes type;
@@ -21,9 +24,14 @@ public class AnimationQueue {
     public int getId() { return id; }
     public void setId(int id)	{	this.id = id; }
 
-    public String getType() { return type.getName(); }
+    public int getType() { return this.type.getId(); }
     public void setType(AnimationTypes animType)	{
         // set to pass in an id, name pair
         this.type = animType;
+    }
+
+    public boolean getPlaying() { return this.playing; }
+    public void setPlaying(boolean animStatus)	{
+        this.playing = animStatus;
     }
 }
