@@ -36,7 +36,7 @@ public class AnimationQueueService {
     }
 
     private String playAnimation(int animTypeId) {
-        final String uri = "http://10.110.79.106:3000/playAnim?type=" + animTypeId;
+        final String uri = "http://10.101.167.33:3000/playAnim?type=" + animTypeId;
 
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(uri, String.class);
