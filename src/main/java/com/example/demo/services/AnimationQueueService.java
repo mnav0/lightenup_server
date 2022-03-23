@@ -15,8 +15,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Iterator;
 
-import static org.springframework.util.ObjectUtils.isEmpty;
-
 @CrossOrigin(origins = "*")
 @RestController
 public class AnimationQueueService {
@@ -38,9 +36,8 @@ public class AnimationQueueService {
     }
 
     private String playAnimation(int animTypeId) {
-        //final String uri = "http://10.0.0.71:3000?type=" + animTypeId;
+        final String uri = "http://10.110.79.106:3000/playAnim?type=" + animTypeId;
 
-        final String uri = "https://catfact.ninja/fact";
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(uri, String.class);
     }
@@ -60,23 +57,19 @@ public class AnimationQueueService {
 
                 String response = playAnimation(animId);
 
-                System.out.println(animId + " done playing " + response);
-                queueRepository.deleteById(first.getId());
-                traverseQueue();
-//                if (response == "Animation done playing") {
-//                    System.out.println(animId + " done playing");
-//                    queueRepository.deleteById(first.getId());
-//                    traverseQueue();
-//                } else {
-//                    // handle error?
-//                }
+                if (response.equals("Animation done playing")) {
+                    System.out.println(animId + " done playing");
+                    queueRepository.deleteById(first.getId());
+                    traverseQueue();
+                } else {
+                    System.out.println("ERROR, response is -" + response + "-");
+                }
             } else {
                 return "waiting";
             }
         } else {
             return "the queue is now empty";
         }
-        System.out.println("has next: " + currQueue.hasNext());
         return "queue has been traversed";
     }
 
