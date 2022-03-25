@@ -63,7 +63,8 @@ public class AnimationQueueService {
                     traverseQueue();
                 } else {
                     System.out.println("ERROR, response is -" + response + "-");
-                    return response;
+                    queueRepository.deleteById(first.getId());
+                    traverseQueue();
                 }
             } else {
                 return "waiting";
