@@ -63,6 +63,7 @@ public class AnimationQueueService {
                     traverseQueue();
                 } else {
                     System.out.println("ERROR, response is -" + response + "-");
+                    return response;
                 }
             } else {
                 return "waiting";
