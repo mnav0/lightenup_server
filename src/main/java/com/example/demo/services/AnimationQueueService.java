@@ -57,15 +57,17 @@ public class AnimationQueueService {
 
                 String response = playAnimation(animId);
 
-                if (response.equals("Animation done playing")) {
-                    System.out.println(animId + " done playing");
+//                if (response.equals("Animation done playing")) {
+                    System.out.println(animId + " done playing, response: ");
+                    System.out.println(response);
                     queueRepository.deleteById(first.getId());
                     traverseQueue();
-                } else {
-                    System.out.println("ERROR, response is -" + response + "-");
-                    queueRepository.deleteById(first.getId());
-                    traverseQueue();
-                }
+//                }
+//                else {
+//                    System.out.println("ERROR, response is -" + response + "-");
+//                    queueRepository.deleteById(first.getId());
+//                    traverseQueue();
+//                }
             } else {
                 return "waiting";
             }
