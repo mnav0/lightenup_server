@@ -40,6 +40,7 @@ public class AnimationQueueService {
             @PathVariable("queueId") Integer queueId) {
         AnimationQueue animQueue = queueRepository.findById(queueId).get();
         animQueue.setFinished(true);
+        queueRepository.save(animQueue);
         return animQueue;
     }
 
@@ -70,6 +71,7 @@ public class AnimationQueueService {
                     System.out.println(response);
                     queueRepository.deleteById(first.getId());
                     traverseQueue();
+
 //                }
 //                else {
 //                    System.out.println("ERROR, response is -" + response + "-");
