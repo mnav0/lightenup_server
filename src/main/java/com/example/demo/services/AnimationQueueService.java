@@ -35,8 +35,16 @@ public class AnimationQueueService {
         return queueRepository.findAll();
     }
 
-    private String playAnimation(int animTypeId) {
-        final String uri = "https://animserver-navracruz.pitunnel.com/playAnim?type=" + animTypeId;
+    @GetMapping("/setFinished/{queueId}")
+    public AnimationQueue setFinished(
+            @PathVariable("queueId") Integer queueId) {
+        AnimationQueue animQueue = queueRepository.findById(queueId).get();
+        animQueue.setFinished(true);
+        return animQueue;
+    }
+
+    private String playAnimation(int animTypeId, int queueId) {
+        final String uri = "https://animserver-navracruz.pitunnel.com/playAnim?type=" + animTypeId + "&id=" + queueId;
 
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(uri, String.class);
@@ -48,14 +56,14 @@ public class AnimationQueueService {
         if (currQueue.hasNext()) {
             AnimationQueue first = currQueue.next();
             System.out.println(first.getId() + " is the first and playing is " + first.getPlaying());
-            if (!first.getPlaying()) {
+            if (!first.getPlaying() || (first.getPlaying() && !first.getFinished())) {
                 first.setPlaying(true);
                 queueRepository.save(first);
 
                 int animId = first.getType();
                 System.out.println(animId + " about to play");
 
-                String response = playAnimation(animId);
+                String response = playAnimation(animId, first.getId());
 
 //                if (response.equals("Animation done playing")) {
                     System.out.println(animId + " done playing, response: ");

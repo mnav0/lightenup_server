@@ -10,6 +10,9 @@ public class AnimationQueue {
     @Column(name="playing")
     private boolean playing;
 
+    @Column(name="finished")
+    private boolean finished;
+
     @OneToOne
     @JoinColumn(name = "type", referencedColumnName = "id")
     private AnimationTypes type;
@@ -33,5 +36,10 @@ public class AnimationQueue {
     public boolean getPlaying() { return this.playing; }
     public void setPlaying(boolean animStatus)	{
         this.playing = animStatus;
+    }
+
+    public boolean getFinished() { return this.finished; }
+    public void setFinished(boolean animStatus)	{
+        this.finished = animStatus;
     }
 }
