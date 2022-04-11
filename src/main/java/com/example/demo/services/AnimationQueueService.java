@@ -38,10 +38,15 @@ public class AnimationQueueService {
     @GetMapping("/setFinished/{queueId}")
     public AnimationQueue setFinished(
             @PathVariable("queueId") Integer queueId) {
-        AnimationQueue animQueue = queueRepository.findById(queueId).get();
-        animQueue.setFinished(true);
-        queueRepository.save(animQueue);
-        return animQueue;
+        try {
+            AnimationQueue animQueue = queueRepository.findById(queueId).get();
+            animQueue.setFinished(true);
+            queueRepository.save(animQueue);
+            return animQueue;
+        } catch (Exception e) {
+            System.out.println("did not get an anim with id " + queueId + ", " + e);
+            return new AnimationQueue();
+        }
     }
 
     private String playAnimation(int animTypeId, int queueId) {
