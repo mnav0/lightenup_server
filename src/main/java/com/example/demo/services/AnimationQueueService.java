@@ -57,7 +57,7 @@ public class AnimationQueueService {
         if (currQueue.hasNext()) {
             AnimationQueue first = currQueue.next();
             System.out.println(first.getId() + " is the first and playing is " + first.getPlaying() + ", finished is " + first.getFinished());
-            if (!first.getPlaying() || (first.getPlaying() && !first.getFinished())) {
+            if (!first.getPlaying()) {
                 first.setPlaying(true);
                 queueRepository.save(first);
 
@@ -68,6 +68,9 @@ public class AnimationQueueService {
 
                 System.out.println(animId + " done playing, response: ");
                 System.out.println(response);
+                queueRepository.deleteById(first.getId());
+                traverseQueue();
+            } else if (first.getFinished()) {
                 queueRepository.deleteById(first.getId());
                 traverseQueue();
             } else {
