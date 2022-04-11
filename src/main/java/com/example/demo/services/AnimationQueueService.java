@@ -71,7 +71,7 @@ public class AnimationQueueService {
                 queueRepository.deleteById(first.getId());
                 traverseQueue();
             } else {
-                return "waiting";
+                return "something is playing or hasn't yet finished";
             }
         } else {
             return "the queue is now empty";
