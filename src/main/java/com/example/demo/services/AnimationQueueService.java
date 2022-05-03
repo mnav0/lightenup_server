@@ -78,6 +78,16 @@ public class AnimationQueueService {
             } else if (first.getFinished()) {
                 queueRepository.deleteById(first.getId());
                 traverseQueue();
+            } else if (first.getPlaying() && !first.getFinished()) {
+                int animId = first.getType();
+                System.out.println(animId + " about to play bc it didn't finish");
+
+                String response = playAnimation(animId, first.getId());
+
+                System.out.println(animId + " done playing, response: ");
+                System.out.println(response);
+                queueRepository.deleteById(first.getId());
+                traverseQueue();
             } else {
                 return "something is playing or hasn't yet finished";
             }
